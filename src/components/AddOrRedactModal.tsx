@@ -3,12 +3,14 @@ import Modal from "@mui/material/Modal";
 import AddOrganizationForm from "./AddOrganizationForm";
 import { Organization } from "../types";
 import AddUserForm from "./AddUserForm";
+import { RedactOrganizationForm } from "./RedactOrganizationForm";
 
 type PropTypes = {
   isShown: boolean;
   closeModal: () => void;
-  type: "add-organization" | "add-user";
+  type: "add-organization" | "add-user" | "redact-organization" | "redact-user";
   formAction: (arg: Partial<Organization>) => void;
+  organizationToRedact?: Organization;
 };
 
 export default function AddOrRedactModal({
@@ -16,6 +18,7 @@ export default function AddOrRedactModal({
   isShown,
   type,
   formAction,
+  organizationToRedact,
 }: PropTypes) {
   return (
     <div>
@@ -34,6 +37,13 @@ export default function AddOrRedactModal({
           )}
           {type === "add-user" && (
             <AddUserForm formAction={formAction} closeModal={closeModal} />
+          )}
+          {type === "redact-organization" && (
+            <RedactOrganizationForm
+              formAction={formAction}
+              closeModal={closeModal}
+              organizationToRedact={organizationToRedact as Organization}
+            />
           )}
         </Box>
       </Modal>

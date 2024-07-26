@@ -75,3 +75,14 @@ export function addUserToLs({ orgToAddId, newUser }: AddUserToLs) {
   }
   localStorage.setItem("organizations", JSON.stringify(orgsArr));
 }
+
+export function updateOrganization(updatedOrg: Organization) {
+  console.log('updatedOrg:', updatedOrg);
+  const organizationsFromLs = localStorage.getItem("organizations");
+  if (organizationsFromLs) {
+    const orgsArr = JSON.parse(organizationsFromLs) as Organization[];
+    const orgToUpdateId = orgsArr.findIndex((org) => org.id === updatedOrg.id);
+    orgsArr[orgToUpdateId] = updatedOrg;
+    localStorage.setItem("organizations", JSON.stringify(orgsArr));
+  }
+}
