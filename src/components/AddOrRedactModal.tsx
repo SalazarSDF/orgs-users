@@ -52,8 +52,7 @@ export default function AddOrRedactModal({
             <RedactUserForm
               formAction={formAction}
               closeModal={closeModal}
-              organizationToRedact={organizationToRedact as Organization}
-              userToRedact={userToRedact}
+              userToRedact={userToRedact as User}
             />
           )}
         </Box>
