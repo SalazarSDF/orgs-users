@@ -30,7 +30,25 @@ const initialState: InitialState = {
 const organizationsSlice = createSlice({
   name: "organizations",
   initialState,
-  reducers: {},
+  reducers: {
+    deleteOrganization(state, action) {
+      const orgIdToDelete = action.payload;
+      state.organizations = state.organizations.filter(
+        (org) => org.id !== orgIdToDelete
+      );
+    },
+    deleteUser(state, action) {
+      const { userIdToDelete, organizationId } = action.payload;
+      const orgWithUser = state.organizations.find(
+        (org) => org.id === organizationId
+      );
+      if (orgWithUser && orgWithUser.users) {
+        orgWithUser.users = orgWithUser.users.filter(
+          (user) => user.id !== userIdToDelete
+        );
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchOrganizations.pending, (state) => {
@@ -47,6 +65,9 @@ const organizationsSlice = createSlice({
 });
 
 export default organizationsSlice;
+
+export const { deleteOrganization, deleteUser } =
+  organizationsSlice.actions;
 
 export const getAllOrganizations = ({
   organizations,

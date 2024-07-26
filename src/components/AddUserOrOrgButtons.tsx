@@ -3,10 +3,11 @@ import { Link as RouterLink } from "react-router-dom";
 
 type PropsType = {
   type: "users" | "organizations";
+  openModalFunc: () => void;
 };
 
-export default function AddUserOrOrgButtons({ type }: PropsType) {
-  //
+export default function AddUserOrOrgButtons({ type, openModalFunc }: PropsType) {
+  
   return (
     <ButtonGroup variant="text">
       {type === "users" && (
@@ -14,7 +15,7 @@ export default function AddUserOrOrgButtons({ type }: PropsType) {
           Назад к списку организаций
         </Button>
       )}
-      <Button>
+      <Button onClick={openModalFunc}>
         {type === "users" ? "Добавить сотрудника" : "Добавить организацию"}
       </Button>
     </ButtonGroup>

@@ -1,3 +1,4 @@
+// name, middleName,lastName, emila
 export type User = {
   id: "string";
   firstName: "string";
