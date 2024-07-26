@@ -76,13 +76,31 @@ export function addUserToLs({ orgToAddId, newUser }: AddUserToLs) {
   localStorage.setItem("organizations", JSON.stringify(orgsArr));
 }
 
-export function updateOrganization(updatedOrg: Organization) {
-  console.log('updatedOrg:', updatedOrg);
+export function updateOrganization(updatedOrg: Partial<Organization>) {
   const organizationsFromLs = localStorage.getItem("organizations");
   if (organizationsFromLs) {
     const orgsArr = JSON.parse(organizationsFromLs) as Organization[];
     const orgToUpdateId = orgsArr.findIndex((org) => org.id === updatedOrg.id);
-    orgsArr[orgToUpdateId] = updatedOrg;
+    orgsArr[orgToUpdateId] = updatedOrg as Organization;
     localStorage.setItem("organizations", JSON.stringify(orgsArr));
   }
+}
+
+type UpdateUser = {
+  userToChange: Partial<User>;
+  organizationId: string | undefined;
+};
+export function updateUser({ userToChange, organizationId }: UpdateUser) {
+  const organizationsFromLs = localStorage.getItem("organizations");
+  if (!organizationId || !organizationsFromLs) return;
+  const orgsArr = JSON.parse(organizationsFromLs) as Organization[];
+  const orgWithUser = orgsArr.find((org) => org.id === organizationId);
+  if (orgWithUser && orgWithUser.users) {
+    const userToUpdateId = orgWithUser.users.findIndex(
+      (user) => user.id === userToChange.id
+    );
+    orgWithUser.users[userToUpdateId] = userToChange as User;
+
+  }
+  localStorage.setItem("organizations", JSON.stringify(orgsArr));
 }

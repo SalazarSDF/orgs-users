@@ -29,7 +29,7 @@ export default function OrganizationItem({ org }: { org: Organization }) {
     deleteOrganizationFromLocalStorage(id);
   }
 
-  function formAction(data: Organization) {
+  function formAction(data: Partial<Organization>) {
     updateOrganization(data);
     dispatch(fetchOrganizations());
   }

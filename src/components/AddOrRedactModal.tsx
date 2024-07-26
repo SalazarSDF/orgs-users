@@ -1,9 +1,10 @@
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import AddOrganizationForm from "./AddOrganizationForm";
-import { Organization } from "../types";
+import { Organization, User } from "../types";
 import AddUserForm from "./AddUserForm";
 import { RedactOrganizationForm } from "./RedactOrganizationForm";
+import RedactUserForm from "./RedactUserForm";
 
 type PropTypes = {
   isShown: boolean;
@@ -11,6 +12,7 @@ type PropTypes = {
   type: "add-organization" | "add-user" | "redact-organization" | "redact-user";
   formAction: (arg: Partial<Organization>) => void;
   organizationToRedact?: Organization;
+  userToRedact?: User;
 };
 
 export default function AddOrRedactModal({
@@ -19,6 +21,7 @@ export default function AddOrRedactModal({
   type,
   formAction,
   organizationToRedact,
+  userToRedact,
 }: PropTypes) {
   return (
     <div>
@@ -43,6 +46,14 @@ export default function AddOrRedactModal({
               formAction={formAction}
               closeModal={closeModal}
               organizationToRedact={organizationToRedact as Organization}
+            />
+          )}
+          {type === "redact-user" && (
+            <RedactUserForm
+              formAction={formAction}
+              closeModal={closeModal}
+              organizationToRedact={organizationToRedact as Organization}
+              userToRedact={userToRedact}
             />
           )}
         </Box>
