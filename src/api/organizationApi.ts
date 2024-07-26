@@ -71,8 +71,7 @@ export function addUserToLs({ orgToAddId, newUser }: AddUserToLs) {
   const orgsArr = JSON.parse(organizationsFromLs) as Organization[];
   const orgWithUser = orgsArr.find((org) => org.id === orgToAddId);
   if (orgWithUser && orgWithUser.users) {
-    newUser.id = uuidv4();
-    orgWithUser.users.push(newUser as User);
+    orgWithUser.users.push({ ...newUser, id: uuidv4() } as User);
   }
   localStorage.setItem("organizations", JSON.stringify(orgsArr));
 }
