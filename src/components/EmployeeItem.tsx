@@ -5,10 +5,9 @@ import { useState } from "react";
 import BuildIcon from "@mui/icons-material/Build";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { deleteUserFromLocalStorage, updateUser } from "../api/organizationApi";
-import { deleteUser } from "../model/organizationsModel";
 import { useAppDispatch } from "../store";
 import AddOrRedactModal from "./AddOrRedactModal";
-import { fetchOrganizations } from "../model/organizationsModel";
+import { deleteUser, fetchOrganizations } from "../features/organizationsSlice";
 
 type Props = {
   employee: User;

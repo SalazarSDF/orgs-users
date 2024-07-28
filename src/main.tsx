@@ -7,7 +7,7 @@ import { CssBaseline } from "@mui/material";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./pages/ErrorPage.tsx";
 import CompanyEmployeesPage from "./pages/CompanyEmployeesPage.tsx";
-import { fetchOrganizations } from "./model/organizationsModel.ts";
+import { fetchOrganizations } from "./features/organizationsSlice.ts";
 
 const router = createBrowserRouter([
   {

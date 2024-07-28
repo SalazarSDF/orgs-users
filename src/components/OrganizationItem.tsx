@@ -14,8 +14,11 @@ import { useAppDispatch } from "../store";
 import {
   deleteOrganization,
   fetchOrganizations,
-} from "../model/organizationsModel";
-import { deleteOrganizationFromLocalStorage, updateOrganization } from "../api/organizationApi";
+} from "../features/organizationsSlice.ts";
+import {
+  deleteOrganizationFromLocalStorage,
+  updateOrganization,
+} from "../api/organizationApi";
 import AddOrRedactModal from "./AddOrRedactModal";
 import { useState } from "react";
 

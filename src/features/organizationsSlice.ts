@@ -1,9 +1,9 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import type { Organization } from "../types";
 import { getOrganizationsFromLocalStorage } from "../api/organizationApi";
 
 export const fetchOrganizations = createAsyncThunk(
-  "organizations/fetchOrganizations",
+  "app/fetchOrganizations",
   async () => {
     try {
       const response: Organization[] = await getOrganizationsFromLocalStorage();
@@ -28,10 +28,10 @@ const initialState: InitialState = {
 };
 
 const organizationsSlice = createSlice({
-  name: "organizations",
+  name: "app",
   initialState,
   reducers: {
-    deleteOrganization(state, action) {
+    deleteOrganization(state, action: PayloadAction<Organization["id"]>) {
       const orgIdToDelete = action.payload;
       state.organizations = state.organizations.filter(
         (org) => org.id !== orgIdToDelete
@@ -66,8 +66,7 @@ const organizationsSlice = createSlice({
 
 export default organizationsSlice;
 
-export const { deleteOrganization, deleteUser } =
-  organizationsSlice.actions;
+export const { deleteOrganization, deleteUser } = organizationsSlice.actions;
 
 export const getAllOrganizations = ({
   organizations,

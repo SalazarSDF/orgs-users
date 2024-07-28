@@ -7,12 +7,12 @@ import { useSelector } from "react-redux";
 import {
   getAllOrganizations,
   getOrganizationsStatus,
-  fetchOrganizations
-} from "./model/organizationsModel";
+  fetchOrganizations,
+} from "./features/organizationsSlice";
 import { useState } from "react";
-import {useAppDispatch} from "./store";
-import {addOrganization} from "./api/organizationApi";
-import {Organization} from "./types";
+import { useAppDispatch } from "./store";
+import { addOrganization } from "./api/organizationApi";
+import { Organization } from "./types";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -26,9 +26,9 @@ function App() {
   function addOrgClick() {
     setShowModal(true);
   }
-  function formAction(data: Partial<Organization>){
+  function formAction(data: Partial<Organization>) {
     addOrganization(data);
-    dispatch(fetchOrganizations())
+    dispatch(fetchOrganizations());
   }
   return (
     <Container className={cx(classes.root)}>
@@ -39,7 +39,7 @@ function App() {
         ))}
       </List>
       <AddOrRedactModal
-        type='add-organization'
+        type="add-organization"
         isShown={showModal}
         closeModal={() => setShowModal(false)}
         formAction={formAction}
