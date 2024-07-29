@@ -39,7 +39,7 @@ function App() {
         ))}
       </List>
       <AddOrRedactModal
-        type="add-organization"
+        type="organization"
         isShown={showModal}
         closeModal={() => setShowModal(false)}
         formAction={formAction}

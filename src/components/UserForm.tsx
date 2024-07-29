@@ -21,16 +21,28 @@ const style = {
 type Props = {
   closeModal: () => void;
   formAction: (arg: Partial<User>) => void;
+  userToRedact?: User;
 };
 
-export default function addUserForm({ formAction, closeModal }: Props) {
+export default function UserForm({
+  formAction,
+  closeModal,
+  userToRedact,
+}: Props) {
+
+  let initialValue = { lastName: "", Email: "", firstName: "", middleName: "" };
+  if (userToRedact) {
+    const { lastName, Email, firstName, middleName } = userToRedact;
+    initialValue = { lastName, Email, firstName, middleName };
+  }
+
   return (
     <Box sx={style}>
       <Formik
-        initialValues={{ lastName: "", Email: "", firstName: "", middleName: "" }}
+        initialValues={initialValue}
         onSubmit={(values, { setSubmitting }) => {
           closeModal();
-          formAction(values as Partial<User>);
+          formAction({ ...userToRedact, ...values } as Partial<User>);
           setSubmitting(false);
         }}
       >

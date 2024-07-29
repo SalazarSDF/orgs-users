@@ -52,7 +52,7 @@ export default function CompanyEmployeesPage() {
         ))}
       </List>
       <AddOrRedactModal
-        type="add-user"
+        type="user"
         isShown={showModal}
         closeModal={() => setShowModal(false)}
         formAction={formAction}

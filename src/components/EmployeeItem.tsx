@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import BuildIcon from "@mui/icons-material/Build";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { deleteUserFromLocalStorage, updateUser } from "../api/organizationApi";
+import { updateUser } from "../api/organizationApi";
 import { useAppDispatch } from "../store";
 import AddOrRedactModal from "./AddOrRedactModal";
 import { deleteUser, fetchOrganizations } from "../features/organizationsSlice";
@@ -21,10 +21,6 @@ export default function EmployeeItem({ employee, companyId }: Props) {
 
   function deleteUserClick(userIdToDelete: string) {
     dispatch(deleteUser({ userIdToDelete, organizationId: companyId }));
-    deleteUserFromLocalStorage({
-      userIdToDelete,
-      organizationId: companyId,
-    });
   }
 
   function formActionToRedactUser(data: Partial<User>) {
@@ -45,7 +41,7 @@ export default function EmployeeItem({ employee, companyId }: Props) {
         <DeleteIcon />
       </IconButton>
       <AddOrRedactModal
-        type="redact-user"
+        type="user"
         isShown={showRedactUserModal}
         closeModal={() => setShowRedactUserModal(false)}
         formAction={formActionToRedactUser}

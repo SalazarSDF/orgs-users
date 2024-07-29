@@ -16,7 +16,6 @@ import {
   fetchOrganizations,
 } from "../features/organizationsSlice.ts";
 import {
-  deleteOrganizationFromLocalStorage,
   updateOrganization,
 } from "../api/organizationApi";
 import AddOrRedactModal from "./AddOrRedactModal";
@@ -29,7 +28,6 @@ export default function OrganizationItem({ org }: { org: Organization }) {
 
   function deleteOrganizationClick() {
     dispatch(deleteOrganization(id));
-    deleteOrganizationFromLocalStorage(id);
   }
 
   function formAction(data: Partial<Organization>) {
@@ -55,7 +53,7 @@ export default function OrganizationItem({ org }: { org: Organization }) {
         <DeleteIcon />
       </IconButton>
       <AddOrRedactModal
-        type="redact-organization"
+        type="organization"
         isShown={showModal}
         closeModal={() => setShowModal(false)}
         formAction={formAction}

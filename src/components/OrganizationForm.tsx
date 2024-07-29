@@ -21,19 +21,23 @@ const style = {
 type Props = {
   closeModal: () => void;
   formAction: (arg: Partial<Organization>) => void;
-  organizationToRedact: Organization;
+  organizationToRedact?: Organization;
 };
 
-export function RedactOrganizationForm({
+export function OrganizationForm({
   formAction,
   closeModal,
   organizationToRedact,
 }: Props) {
-  const { name, type, address, link } = organizationToRedact;
+  let initialValue = { name: "", type: "", address: "", link: "" };
+  if (organizationToRedact) {
+    const { name, type, address, link } = organizationToRedact;
+    initialValue = { name, type, address, link };
+  }
   return (
     <Box sx={style}>
       <Formik
-        initialValues={{ name, type, address, link }}
+        initialValues={initialValue}
         onSubmit={(values, { setSubmitting }) => {
           closeModal();
           formAction({
@@ -44,7 +48,7 @@ export function RedactOrganizationForm({
         }}
       >
         {({ values, handleSubmit, handleChange, isSubmitting }) => (
-          <form id="jopa" onSubmit={handleSubmit}>
+          <form id="organization-form-id" onSubmit={handleSubmit}>
             <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
               <TextField
                 type="name"
@@ -75,7 +79,7 @@ export function RedactOrganizationForm({
                 label="Сайт организации"
               />
 
-              <Button form="jopa" type="submit" disabled={isSubmitting}>
+              <Button form="organization-form-id" type="submit" disabled={isSubmitting}>
                 Сохранить
               </Button>
             </Box>
