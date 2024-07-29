@@ -2,7 +2,6 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { OrganizationForm } from "./OrganizationForm";
 import { Organization, User } from "../types";
-import { RedactOrganizationForm } from "./RedactOrganizationForm";
 import UserForm from "./UserForm";
 
 type PropTypes = {
