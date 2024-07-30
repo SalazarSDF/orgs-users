@@ -14,26 +14,36 @@ import { useAppDispatch } from "./store";
 import { addOrganization } from "./api/organizationApi";
 import { Organization } from "./types";
 
-function App() {
-  const dispatch = useAppDispatch();
+export default function App() {
   const { cx, classes } = useStyles();
+
+  const [showModal, setShowModal] = useState(false);
+  const dispatch = useAppDispatch();
+
   const organizations = useSelector(getAllOrganizations);
   const orgsStatus = useSelector(getOrganizationsStatus);
-  const [showModal, setShowModal] = useState(false);
+
   if (orgsStatus === "loading") {
     return "Loading..";
   }
-  function addOrgClick() {
-    setShowModal(true);
-  }
-  function formAction(data: Partial<Organization>) {
+
+  const formAction = (data: Partial<Organization>) =>  {
     addOrganization(data);
     dispatch(fetchOrganizations());
   }
   return (
     <Container className={cx(classes.root)}>
-      <AddUserOrOrgButtons openModalFunc={addOrgClick} type="organizations" />
-      <List>
+      <AddUserOrOrgButtons
+        openModalFunc={() => setShowModal(true)}
+        type="organizations"
+      />
+      <List className={cx(classes.list)}>
+        <div>Название</div>
+        <div>Тип</div>
+        <div>Адрес</div>
+        <div>Ссылка</div>
+        <div className={cx(classes.listCenter)}>Редактировать</div>
+        <div className={cx(classes.listCenter)}>Удалить</div>
         {organizations.map((org) => (
           <OrganizationItem key={org.id} org={org} />
         ))}
@@ -47,13 +57,25 @@ function App() {
     </Container>
   );
 }
+
 const useStyles = tss.create({
   root: {
     display: "flex",
     alignItems: "center",
     flexDirection: "column",
     padding: "20px",
+    maxHeight: "100vh",
+  },
+  list: {
+    maxHeight: "100vh",
+    display: "grid",
+    gridTemplateColumns: "repeat(4, 1fr) 0.5fr 0.5fr",
+    gap: "20px",
+    alignItems: "center",
+    overflowY: "auto",
+    marginTop: '20px'
+  },
+  listCenter: {
+    justifySelf: "center",
   },
 });
-
-export default App;

@@ -1,11 +1,5 @@
-import {
-  Link,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemButton,
-  IconButton,
-} from "@mui/material";
+import { tss } from "tss-react";
+import { Link, Button, IconButton } from "@mui/material";
 import BuildIcon from "@mui/icons-material/Build";
 import DeleteIcon from "@mui/icons-material/Delete";
 import type { Organization } from "../types";
@@ -15,41 +9,45 @@ import {
   deleteOrganization,
   fetchOrganizations,
 } from "../features/organizationsSlice.ts";
-import {
-  updateOrganization,
-} from "../api/organizationApi";
+import { updateOrganization } from "../api/organizationApi";
 import AddOrRedactModal from "./AddOrRedactModal";
 import { useState } from "react";
 
 export default function OrganizationItem({ org }: { org: Organization }) {
-  const { id, name, type, address, link } = org;
+  const { cx, classes } = useStyles();
+
   const dispatch = useAppDispatch();
   const [showModal, setShowModal] = useState(false);
 
-  function deleteOrganizationClick() {
-    dispatch(deleteOrganization(id));
-  }
+  const { id, name, type, address, link } = org;
 
-  function formAction(data: Partial<Organization>) {
+  const handlerDeleteOrganization = () => {
+    dispatch(deleteOrganization(id));
+  };
+
+  const formAction = (data: Partial<Organization>) => {
     updateOrganization(data);
     dispatch(fetchOrganizations());
-  }
+  };
 
   return (
-    <ListItem>
-      <ListItemButton component={RouterLink} to={`company-employees/${id}`}>
-        <List>
-          <ListItemText primary={name} secondary={type} />
-          <ListItemText secondary={address} />
-        </List>
-      </ListItemButton>
+    <>
+      <Button
+        className={cx(classes.listButton)}
+        component={RouterLink}
+        to={`company-employees/${id}`}
+      >
+        <span>{name}</span>
+        <span>{type}</span>
+        <span>{address}</span>
+      </Button>
       <Link href={`https://${link}`} target="_blank" underline="hover">
         {link}
       </Link>
       <IconButton onClick={() => setShowModal(true)}>
         <BuildIcon />
       </IconButton>
-      <IconButton onClick={deleteOrganizationClick}>
+      <IconButton onClick={handlerDeleteOrganization}>
         <DeleteIcon />
       </IconButton>
       <AddOrRedactModal
@@ -59,6 +57,15 @@ export default function OrganizationItem({ org }: { org: Organization }) {
         formAction={formAction}
         organizationToRedact={org}
       />
-    </ListItem>
+    </>
   );
 }
+
+const useStyles = tss.create({
+  listButton: {
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)",
+    gridColumn: "1/4",
+    borderBottom: "1px solid black",
+  },
+});

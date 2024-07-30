@@ -1,22 +1,9 @@
+import { tss } from "tss-react";
 import { Box, Button, TextField } from "@mui/material";
 import { Formik } from "formik";
 
 import type { Organization } from "../types";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-  display: "flex",
-  flexDirection: "column",
-  gap: "20px",
-};
 
 type Props = {
   closeModal: () => void;
@@ -29,13 +16,16 @@ export function OrganizationForm({
   closeModal,
   organizationToRedact,
 }: Props) {
+  const { cx, classes } = useStyles();
+
   let initialValue = { name: "", type: "", address: "", link: "" };
   if (organizationToRedact) {
     const { name, type, address, link } = organizationToRedact;
     initialValue = { name, type, address, link };
   }
+
   return (
-    <Box sx={style}>
+    <Box className={cx(classes.root)}>
       <Formik
         initialValues={initialValue}
         onSubmit={(values, { setSubmitting }) => {
@@ -89,3 +79,22 @@ export function OrganizationForm({
     </Box>
   );
 }
+
+
+const useStyles = tss.create({
+  root: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "400px",
+    backgroundColor: "white",
+    border: "2px solid #000",
+    boxShadow:
+      "0px 11px 15px -7px rgba(0,0,0,0.2),0px 24px 38px 3px rgba(0,0,0,0.14),0px 9px 46px 8px rgba(0,0,0,0.12)",
+    padding: "32px",
+    display: "flex",
+    flexDirection: "column",
+    gap: "20px",
+  },
+});

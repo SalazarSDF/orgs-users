@@ -1,3 +1,4 @@
+import { tss } from "tss-react";
 import { User } from "../types";
 import { ListItem, ListItemText, IconButton, List } from "@mui/material";
 import { useState } from "react";
@@ -13,27 +14,26 @@ type Props = {
   employee: User;
   companyId: string;
 };
+
 export default function EmployeeItem({ employee, companyId }: Props) {
   const [showRedactUserModal, setShowRedactUserModal] = useState(false);
 
   const dispatch = useAppDispatch();
-  const name = `${employee.firstName} ${employee.middleName} ${employee.lastName}`;
+  const { firstName, middleName, lastName, Email } = employee;
 
   function deleteUserClick(userIdToDelete: string) {
     dispatch(deleteUser({ userIdToDelete, organizationId: companyId }));
   }
-
   function formActionToRedactUser(data: Partial<User>) {
     updateUser({ userToChange: data, organizationId: companyId });
     dispatch(fetchOrganizations());
   }
 
   return (
-    <ListItem key={employee.id}>
-      <List>
-        <ListItemText primary={name} secondary={employee.middleName} />
-        <ListItemText secondary={employee.Email} />
-      </List>
+    <>
+      <span>{firstName + " " + middleName}</span>
+      <span>{lastName}</span>
+      <span>{Email}</span>
       <IconButton onClick={() => setShowRedactUserModal(true)}>
         <BuildIcon />
       </IconButton>
@@ -47,6 +47,6 @@ export default function EmployeeItem({ employee, companyId }: Props) {
         formAction={formActionToRedactUser}
         userToRedact={employee}
       />
-    </ListItem>
+    </>
   );
 }

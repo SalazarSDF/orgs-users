@@ -5,37 +5,35 @@ import {
   getAllOrganizations,
   fetchOrganizations,
 } from "../features/organizationsSlice";
-import {
-  List,
-  Container,
-} from "@mui/material";
+import { List, Container } from "@mui/material";
 import AddUserOrOrgButtons from "../components/AddUserOrOrgButtons";
 import { useAppDispatch } from "../store";
-import {
-  addUserToLs,
-} from "../api/organizationApi";
+import { addUserToLs } from "../api/organizationApi";
 import { useState } from "react";
 import AddOrRedactModal from "../components/AddOrRedactModal";
 import type { User } from "../types";
 import EmployeeItem from "../components/EmployeeItem";
 
 export default function CompanyEmployeesPage() {
-  const dispatch = useAppDispatch();
-  const [showModal, setShowModal] = useState(false);
-  let { "company-id": companyId } = useParams();
   const { cx, classes } = useStyles();
-  companyId = companyId ?? "";
 
-  const currentOrganization = useSelector(getAllOrganizations).filter(
+  const [showModal, setShowModal] = useState(false);
+  const dispatch = useAppDispatch();
+
+  const { "company-id": companyId } = useParams();
+  const currentOrganization = useSelector(getAllOrganizations).find(
     (org) => org.id === companyId
-  )[0];
+  );
+  if (!currentOrganization || !companyId) {
+    return <h1>Ошибка! Неизвестная организация..'</h1>;
+  }
+
   const employees = currentOrganization.users;
 
-
-  function formAction(data: Partial<User>) {
+  const formAction = (data: Partial<User>) => {
     addUserToLs({ orgToAddId: currentOrganization.id, newUser: data });
     dispatch(fetchOrganizations());
-  }
+  };
 
   return (
     <Container className={cx(classes.root)}>
@@ -48,7 +46,11 @@ export default function CompanyEmployeesPage() {
         subheader={"Организация: " + currentOrganization.name}
       >
         {employees.map((employee) => (
-          <EmployeeItem key={employee.id} companyId={companyId } employee={employee} />
+          <EmployeeItem
+            key={employee.id}
+            companyId={companyId}
+            employee={employee}
+          />
         ))}
       </List>
       <AddOrRedactModal
@@ -71,6 +73,11 @@ const useStyles = tss.create({
   },
   list: {
     maxHeight: "100vh",
-    overflow: "scroll",
+    display: "grid",
+    gridTemplateColumns: "repeat(4, 1fr) 0.5fr 0.5fr",
+    gap: "20px",
+    alignItems: "center",
+    overflowY: "auto",
+    marginTop: '20px'
   },
 });
