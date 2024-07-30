@@ -12,6 +12,7 @@ import { addUserToLs } from "../api/organizationApi";
 import { useState } from "react";
 import AddOrRedactModal from "../components/AddOrRedactModal";
 import type { User } from "../types";
+import { FormTypes } from "../types";
 import EmployeeItem from "../components/EmployeeItem";
 
 export default function CompanyEmployeesPage() {
@@ -38,7 +39,7 @@ export default function CompanyEmployeesPage() {
   return (
     <Container className={cx(classes.root)}>
       <AddUserOrOrgButtons
-        type="users"
+        type={FormTypes.user}
         openModalFunc={() => setShowModal(true)}
       />
       <List
@@ -54,7 +55,7 @@ export default function CompanyEmployeesPage() {
         ))}
       </List>
       <AddOrRedactModal
-        type="user"
+        type={FormTypes.user}
         isShown={showModal}
         closeModal={() => setShowModal(false)}
         formAction={formAction}

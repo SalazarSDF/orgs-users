@@ -12,7 +12,7 @@ import {
 import { useState } from "react";
 import { useAppDispatch } from "./store";
 import { addOrganization } from "./api/organizationApi";
-import { Organization } from "./types";
+import { Organization, FormTypes } from "./types";
 
 export default function App() {
   const { cx, classes } = useStyles();
@@ -35,7 +35,7 @@ export default function App() {
     <Container className={cx(classes.root)}>
       <AddUserOrOrgButtons
         openModalFunc={() => setShowModal(true)}
-        type="organizations"
+        type={FormTypes.organization}
       />
       <List className={cx(classes.list)}>
         <div>Название</div>
@@ -49,7 +49,7 @@ export default function App() {
         ))}
       </List>
       <AddOrRedactModal
-        type="organization"
+        type={FormTypes.organization}
         isShown={showModal}
         closeModal={() => setShowModal(false)}
         formAction={formAction}

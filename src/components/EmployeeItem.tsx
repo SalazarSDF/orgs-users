@@ -1,6 +1,5 @@
-import { tss } from "tss-react";
-import { User } from "../types";
-import { ListItem, ListItemText, IconButton, List } from "@mui/material";
+import { User, FormTypes } from "../types";
+import { IconButton } from "@mui/material";
 import { useState } from "react";
 
 import BuildIcon from "@mui/icons-material/Build";
@@ -41,7 +40,7 @@ export default function EmployeeItem({ employee, companyId }: Props) {
         <DeleteIcon />
       </IconButton>
       <AddOrRedactModal
-        type="user"
+        type={FormTypes.user}
         isShown={showRedactUserModal}
         closeModal={() => setShowRedactUserModal(false)}
         formAction={formActionToRedactUser}

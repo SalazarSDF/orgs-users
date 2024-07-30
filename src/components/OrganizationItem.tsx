@@ -2,7 +2,7 @@ import { tss } from "tss-react";
 import { Link, Button, IconButton } from "@mui/material";
 import BuildIcon from "@mui/icons-material/Build";
 import DeleteIcon from "@mui/icons-material/Delete";
-import type { Organization } from "../types";
+import { Organization, FormTypes } from "../types";
 import { Link as RouterLink } from "react-router-dom";
 import { useAppDispatch } from "../store";
 import {
@@ -51,7 +51,7 @@ export default function OrganizationItem({ org }: { org: Organization }) {
         <DeleteIcon />
       </IconButton>
       <AddOrRedactModal
-        type="organization"
+        type={FormTypes.organization}
         isShown={showModal}
         closeModal={() => setShowModal(false)}
         formAction={formAction}

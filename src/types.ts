@@ -16,3 +16,8 @@ export type Organization = {
   link: "string";
   users: User[];
 };
+
+export enum FormTypes {
+  organization = "organization",
+  user = "user",
+}
