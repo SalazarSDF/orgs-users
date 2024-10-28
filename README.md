@@ -1,6 +1,6 @@
 # Simple CRUD | Features Slice Design
 
-##TECH
+## TECH
 - redux
 - webpack
 - react
