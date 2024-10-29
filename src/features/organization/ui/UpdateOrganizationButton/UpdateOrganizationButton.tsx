@@ -1,13 +1,11 @@
 import BuildIcon from "@mui/icons-material/Build";
 import { IconButton } from "@mui/material";
-import { useAppDispatch } from "shared/model/hooks";
-import { useConfirmModal } from "shared/useConfirmModal";
+import { useAppDispatch, useConfirmModal } from "shared/model/hooks";
 
 type Props = {
   organizationToUpdateId: Id;
 };
 export function UpdateOrganizationButton({ organizationToUpdateId }: Props) {
-
   const dispatch = useAppDispatch();
   const confirmRemoveModal = useConfirmModal();
 
@@ -28,7 +26,7 @@ export function UpdateOrganizationButton({ organizationToUpdateId }: Props) {
     });
   };
   return (
-    <IconButton color='warning' onClick={onClickHandler}>
+    <IconButton color="warning" onClick={onClickHandler}>
       <BuildIcon />
     </IconButton>
   );

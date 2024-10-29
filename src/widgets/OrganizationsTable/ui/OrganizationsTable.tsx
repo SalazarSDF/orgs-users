@@ -21,7 +21,7 @@ function OrganizationsTableRow({ orgId }: { orgId: Id }) {
       <td>{address}</td>
       <td>{link}</td>
       <td>
-        <UpdateOrganizationButton organizationToUpdateId={orgId} />
+        X
       </td>
       <td>
         <DeleteOrganizationButton organizationToDeleteId={orgId} />

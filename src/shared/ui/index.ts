@@ -1,2 +1,2 @@
 export { BaseLayout } from "./Layout/baseLayout";
-export { Modal } from "./Modal/Modal";
+export { ConfirmModal } from "./ConfirmModal/ConfirmModal";

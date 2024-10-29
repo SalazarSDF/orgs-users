@@ -9,14 +9,12 @@ import { CssBaseline } from "@mui/material";
 import { ErrorBoundary } from "react-error-boundary";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <ErrorBoundary fallback={<div>Something went wrong</div>}>
-      <ModalProvider>
-        <ReduxProvider store={appStore}>
-          <CssBaseline />
-          <RouterProvider router={appRouter()} />
-        </ReduxProvider>
-      </ModalProvider>
-    </ErrorBoundary>
-  </React.StrictMode>
+  <ErrorBoundary fallback={<div>Something went wrong</div>}>
+    <ModalProvider>
+      <ReduxProvider store={appStore}>
+        <CssBaseline />
+        <RouterProvider router={appRouter()} />
+      </ReduxProvider>
+    </ModalProvider>
+  </ErrorBoundary>
 );
