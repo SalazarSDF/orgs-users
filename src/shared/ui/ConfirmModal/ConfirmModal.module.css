@@ -15,3 +15,7 @@
   align-items: center;
   justify-content: center;
 }
+.modalButtonsContainer {
+  display: flex;
+  gap: 20px;
+}

@@ -7,14 +7,17 @@ import { appStore } from "./appStore";
 import { RouterProvider } from "react-router-dom";
 import { CssBaseline } from "@mui/material";
 import { ErrorBoundary } from "react-error-boundary";
+import "./appModals";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <ErrorBoundary fallback={<div>Something went wrong</div>}>
-    <ModalProvider>
+  <React.StrictMode>
+    <ErrorBoundary fallback={<div>Something went wrong</div>}>
       <ReduxProvider store={appStore}>
-        <CssBaseline />
-        <RouterProvider router={appRouter()} />
+        <ModalProvider>
+          <CssBaseline />
+          <RouterProvider router={appRouter()} />
+        </ModalProvider>
       </ReduxProvider>
-    </ModalProvider>
-  </ErrorBoundary>
+    </ErrorBoundary>
+  </React.StrictMode>
 );

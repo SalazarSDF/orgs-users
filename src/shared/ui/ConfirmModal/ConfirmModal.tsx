@@ -1,9 +1,6 @@
-import { useModal } from "@ebay/nice-modal-react";
-import { type ReactNode } from "react";
-import { memo } from "react";
-import { Modal as BaseModal } from "@mui/material";
 import css from "./ConfirmModal.module.css";
 import { Box } from "@mui/material";
+import { BaseModal } from "../BaseModal/BaseModal";
 import { Button } from "@mui/material";
 
 type Props = {
@@ -14,27 +11,21 @@ type Props = {
   cancelText?: string;
 };
 
-export const ConfirmModal = memo(
-  function ConfirmModal(props: Props) {
-    return (
-      <BaseModal
-        onClose={props.onCancel}
-        className={css.modal}
-        // Open always true because we use nice-modal-react
-        // Maybe I should find better component in MIU for modal or
-        // write my own <Modal/> component or
-        // leave it like that
-        open={true}
-      >
-        <Box className={css.container}>
-          <p>{props.title}</p>
+export function ConfirmModal(props: Props) {
+  return (
+    <BaseModal
+      onClose={props.onCancel}
+      className={css.modal}
+    >
+      <Box className={css.container}>
+        <p>{props.title}</p>
+        <div className={css.modalButtonsContainer}>
           <Button color="error" variant="contained" onClick={props.onConfirm}>
             {props.confirmText}
           </Button>
           <Button onClick={props.onCancel}>{props.cancelText}</Button>
-        </Box>
-      </BaseModal>
-    );
-  },
-  (oldProps, newProps) => oldProps.title === newProps.title
-);
+        </div>
+      </Box>
+    </BaseModal>
+  );
+};

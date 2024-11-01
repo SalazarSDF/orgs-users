@@ -13,6 +13,7 @@ export const organizationsSlice = createSlice({
   reducers: {
     organizationAdded: organizationsAdapter.addOne,
     organizationRemoved: organizationsAdapter.removeOne,
+    organizationUpdated: organizationsAdapter.updateOne,
   },
 });
 
@@ -24,5 +25,5 @@ export const {
   (state) => state.organizations
 );
 
-export const { organizationAdded, organizationRemoved } =
+export const { organizationAdded, organizationRemoved, organizationUpdated } =
   organizationsSlice.actions;

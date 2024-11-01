@@ -5,10 +5,11 @@ import {
 } from "entities/organization/model/slice";
 import { useSelector } from "react-redux";
 import { useAppSelector } from "shared/model/hooks";
-//import { DeleteOrganizationButton } from "features/organization/ui/DeleteOrganizationButton";
-import { DeleteOrganizationButton } from "features/organization";
+import {
+  DeleteOrganizationButton,
+  UpdateOrganizationButton,
+} from "features/organization";
 import css from "./OrganizationTable.module.css";
-import { UpdateOrganizationButton } from "features/organization";
 
 function OrganizationsTableRow({ orgId }: { orgId: Id }) {
   const { name, type, address, link } = useAppSelector((state) =>
@@ -21,7 +22,7 @@ function OrganizationsTableRow({ orgId }: { orgId: Id }) {
       <td>{address}</td>
       <td>{link}</td>
       <td>
-        X
+        <UpdateOrganizationButton organizationToUpdateId={orgId} />
       </td>
       <td>
         <DeleteOrganizationButton organizationToDeleteId={orgId} />

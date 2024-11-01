@@ -1,30 +1,21 @@
+import { useCallback } from "react";
 import BuildIcon from "@mui/icons-material/Build";
 import { IconButton } from "@mui/material";
-import { useAppDispatch, useConfirmModal } from "shared/model/hooks";
+import NiceModal from "@ebay/nice-modal-react";
+import { MODAL_TYPES } from "shared/model";
 
 type Props = {
   organizationToUpdateId: Id;
 };
-export function UpdateOrganizationButton({ organizationToUpdateId }: Props) {
-  const dispatch = useAppDispatch();
-  const confirmRemoveModal = useConfirmModal();
 
-  const onClickHandler = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    console.log("ЭВЕНТ!!", e);
-    e.preventDefault();
-    confirmRemoveModal.show({
-      title: "Вы уверенны, что хотите сохранить изменения?",
-      confirmText: "Изменить",
-      cancelText: "Отменить",
-      onConfirm: () => {
-        confirmRemoveModal.remove();
-        //dispatch(organizationRemoved(organizationToDeleteId))
-      },
-      onCancel: () => confirmRemoveModal.remove(),
+export function UpdateOrganizationButton({ organizationToUpdateId }: Props) {
+  const onClickHandler = useCallback(() => {
+    NiceModal.show(MODAL_TYPES["organization-form"], {
+      organizationId: organizationToUpdateId,
+      typeOfAction: "update",
     });
-  };
+  }, [organizationToUpdateId]);
+
   return (
     <IconButton color="warning" onClick={onClickHandler}>
       <BuildIcon />

@@ -23,9 +23,9 @@ declare global {
 
   export type DateIso = string;
 
-  export type Address = string;
-
   export type Url = string;
+
+  export type Address = string;
 
   export type Color = string;
 
